@@ -5,11 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/lockStatusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lock Status: Unknown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
     <Button
         android:id="@+id/unlockButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Открыть замок"
+        android:text="Unlock door"
+        android:layout_below="@id/lockStatusTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
 
@@ -17,7 +26,7 @@
         android:id="@+id/lockButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Закрыть замок"
+        android:text="Lock door"
         android:layout_below="@id/unlockButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
@@ -25,7 +34,7 @@
         android:id="@+id/automodeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Автомод"
+        android:text="Unlock - Auto lock door"
         android:layout_below="@id/lockButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
@@ -34,17 +43,10 @@
         android:id="@+id/downloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Скачать"
+        android:text="Download database"
         android:layout_below="@id/automodeButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/lockStatusTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lock Status: Unknown"
-        android:layout_below="@id/downloadButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+
 </RelativeLayout>
