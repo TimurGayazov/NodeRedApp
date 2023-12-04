@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/lockStatusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lock Status: Unknown"
+        android:text="Unknown"
+        android:textColor="#F0F8FF"
+        android:textSize="35dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
@@ -20,6 +23,8 @@
         android:text="Unlock door"
         android:layout_below="@id/lockStatusTextView"
         android:layout_centerHorizontal="true"
+        app:cornerRadius="50px"
+        android:backgroundTint="#00FF00"
         android:layout_marginTop="50dp"/>
 
     <Button
@@ -29,6 +34,8 @@
         android:text="Lock door"
         android:layout_below="@id/unlockButton"
         android:layout_centerHorizontal="true"
+        app:cornerRadius="50px"
+        android:backgroundTint="#FF0000"
         android:layout_marginTop="20dp"/>
     <Button
         android:id="@+id/automodeButton"
@@ -37,6 +44,9 @@
         android:text="Unlock - Auto lock door"
         android:layout_below="@id/lockButton"
         android:layout_centerHorizontal="true"
+        app:cornerRadius="50px"
+        android:backgroundTint="#E0FFFF"
+
         android:layout_marginTop="20dp"/>
 
     <Button
@@ -45,6 +55,19 @@
         android:layout_height="wrap_content"
         android:text="Download database"
         android:layout_below="@id/automodeButton"
+        android:layout_centerHorizontal="true"
+        app:cornerRadius="50px"
+        android:backgroundTint="#E0FFFF"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/statusDownloadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:layout_below="@id/downloadButton"
+        android:textColor="#F0F8FF"
+        android:textSize="15dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 

@@ -1,10 +1,13 @@
 package com.example.virtual_door;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -25,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT";
     private MqttClient mqttClient;
     private TextView lockStatusTextView;
+    private TextView statusDownloadView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lockStatusTextView = findViewById(R.id.lockStatusTextView);
+        statusDownloadView = findViewById(R.id.statusDownloadView);
         Button unlockButton = findViewById(R.id.unlockButton);
         unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 private void updateLockStatus(String status) {
                     runOnUiThread(() -> {
-                        lockStatusTextView.setText("Lock Status: " + status);
+                        lockStatusTextView.setText(status);
+                        if ("lock".equals(status)) {
+                            lockStatusTextView.setTextColor(Color.RED);
+                        }
+                        else if ("unlock".equals(status)){
+                            lockStatusTextView.setTextColor(Color.GREEN);
+                        }
                         writeStatusToFile(status);
                     });
                 }
@@ -128,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
             if (mqttClient != null && mqttClient.isConnected()) {
                 Log.d(TAG, "Publishing 'unlock' to button_press topic");
                 mqttClient.publish("button_press", new MqttMessage("unlock".getBytes()));
+                statusDownloadView.setText("...");
+                statusDownloadView.setTextColor(Color.WHITE);
             } else {
                 Log.e(TAG, "MQTT client is not connected");
             }
@@ -142,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
             if (mqttClient != null && mqttClient.isConnected()) {
                 Log.d(TAG, "Publishing 'lock' to button_press topic");
                 mqttClient.publish("button_press", new MqttMessage("lock".getBytes()));
+                statusDownloadView.setText("...");
+                statusDownloadView.setTextColor(Color.WHITE);
             } else {
                 Log.e(TAG, "MQTT client is not connected");
             }
@@ -156,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
             if (mqttClient != null && mqttClient.isConnected()) {
                 Log.d(TAG, "Publishing 'lock' to button_press topic");
                 mqttClient.publish("button_press", new MqttMessage("auto-mode".getBytes()));
+                statusDownloadView.setText("...");
+                statusDownloadView.setTextColor(Color.WHITE);
             } else {
                 Log.e(TAG, "MQTT client is not connected");
             }
@@ -182,12 +199,20 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Log.d(TAG, "File downloaded to: " + destinationFile.getAbsolutePath());
+                statusDownloadView.setText("File success download!");
+                statusDownloadView.setTextColor(Color.GREEN);
             } else {
                 Log.e(TAG, "File does not exist");
+
+                statusDownloadView.setText("Failed download!");
+                statusDownloadView.setTextColor(Color.RED);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Error downloading file: " + e.getMessage());
+            statusDownloadView.setText("Failed download!");
+            statusDownloadView.setTextColor(Color.RED);
         }
     }
 
